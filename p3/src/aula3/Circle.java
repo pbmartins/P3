@@ -1,18 +1,18 @@
 package aula3;
 
-import aula1.Ponto;
+import aula1.Point;
 
 public class Circle extends Figure {
 	private double radius;
 	
-	public Circle(Ponto centre, double radius) {
+	public Circle(Point centre, double radius) {
 		super(centre);
 		if (radius <= 0) throw new IllegalArgumentException("O raio tem de ser superior a 0");
 		this.radius = radius;
 	}
 	
 	public Circle(double x, double y, double radius) {
-		this(new Ponto(x, y), radius);
+		this(new Point(x, y), radius);
 	}
 	
 	public Circle(double radius) {
@@ -48,7 +48,7 @@ public class Circle extends Figure {
 	}
 	
 	public boolean intersects(Circle c) {
-		double centresDistance = super.getCentre().distancia(c.getCentre());
+		double centresDistance = super.getCentre().distance(c.getCentre());
 		double radiusSum = this.radius + c.getRadius();
 		if (centresDistance > radiusSum) return false;
 		else return true;

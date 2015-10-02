@@ -1,25 +1,29 @@
 package aula3;
 
-import aula1.Ponto;
+import aula1.Point;
 
 public class Figure {
-	private Ponto centre;
+	private Point centre;
 	
 	public Figure(double x, double y) {
-		centre = new Ponto(x, y);
+		centre = new Point(x, y);
 	}
 	
-	public Figure(Ponto centre) {
+	public Figure(Point centre) {
 		if (centre == null) throw new IllegalArgumentException("O ponto Centro não é válido");
 		this.centre = centre;
 	}
 	
-	public Ponto getCentre() {
+	public Point getCentre() {
 		return this.centre;
 	}
 	
 	public String toString() {
 		return "Centro: " + centre.toString() + "\n";
+	}
+	
+	public double area() {
+		return 0;
 	}
 	
 	public boolean equals(Object f) {

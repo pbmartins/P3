@@ -1,11 +1,11 @@
 package aula3;
 
-import aula1.Ponto;
+import aula1.Point;
 
 public class Rectangle extends Figure {
 	private double width, height;
 	
-	public Rectangle(Ponto centre, double width, double height) {
+	public Rectangle(Point centre, double width, double height) {
 		super(centre);
 		if (width <= 0 || height <= 0) throw new IllegalArgumentException("O comprimento e/ou a largura têm de ser superiores a 0");
 		this.width = width;
@@ -13,7 +13,7 @@ public class Rectangle extends Figure {
 	}
 	
 	public Rectangle(double x, double y, double width, double height) {
-		this(new Ponto(x, y), width, height);
+		this(new Point(x, y), width, height);
 	}
 	
 	public Rectangle(double width, double height) {

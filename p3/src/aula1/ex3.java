@@ -6,11 +6,11 @@ public class ex3 {
 	static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {
-		HashMap<String, Circulo> circulos = new HashMap<String, Circulo>();
-		HashMap<String, Quadrado> quadrados = new HashMap<String, Quadrado>();
-		HashMap<String, Retangulo> retangulos = new HashMap<String, Retangulo>();
+		HashMap<String, Circle> circulos = new HashMap<String, Circle>();
+		HashMap<String, Square> quadrados = new HashMap<String, Square>();
+		HashMap<String, Rectangle> retangulos = new HashMap<String, Rectangle>();
 		String key = "";
-		Circulo c1 = null, c2 = null;
+		Circle c1 = null, c2 = null;
 		
 		for (;;) {
 			switch(showMenu()) {
@@ -19,21 +19,21 @@ public class ex3 {
 					System.exit(0);
 					break;
 				case 1:
-					Circulo circulo = criarCirculo();
+					Circle circulo = criarCirculo();
 					System.out.print("Identificador (chave): ");
 					key = sc.next();
 					assert !circulos.containsKey(key);
 					circulos.put(key, circulo);
 					break;
 				case 2:
-					Quadrado quadrado = criarQuadrado();
+					Square quadrado = criarQuadrado();
 					System.out.print("Identificador (chave): ");
 					key = sc.next();
 					assert !quadrados.containsKey(key);
 					quadrados.put(key, quadrado);
 					break;
 				case 3:
-					Retangulo retangulo = criarRetangulo();
+					Rectangle retangulo = criarRetangulo();
 					System.out.print("Identificador (chave): ");
 					key = sc.next();
 					assert !retangulos.containsKey(key);
@@ -45,7 +45,7 @@ public class ex3 {
 				case 5:
 					c1 = procurarCirculo(circulos);
 					c2 = procurarCirculo(circulos);
-					if (c1.igualA(c2)) 
+					if (c1.equalsTo(c2)) 
 						System.out.println("Os círculos são iguais.");
 					else
 						System.out.println("Os círculos são diferentes.");
@@ -82,7 +82,7 @@ public class ex3 {
 		return op;
 	}
 	
-	public static Ponto criarPonto() {
+	public static Point criarPonto() {
 		double x = 0, y = 0;
 		System.out.println("----- Ponto -----");
 		System.out.print("Abcissa: ");
@@ -90,11 +90,11 @@ public class ex3 {
 		System.out.print("Ordenada: ");
 		y = sc.nextDouble();
 		
-		return new Ponto(x, y);
+		return new Point(x, y);
 	}
 	
-	public static Circulo criarCirculo() {
-		Ponto centro = null;
+	public static Circle criarCirculo() {
+		Point centro = null;
 		double raio = 0;
 		
 		System.out.println("---- Circulo ----");
@@ -102,11 +102,11 @@ public class ex3 {
 		System.out.print("Raio: ");
 		raio = sc.nextDouble();
 		
-		return new Circulo(centro, raio);
+		return new Circle(centro, raio);
 	}
 	
-	public static Quadrado criarQuadrado() {
-		Ponto centro = null;
+	public static Square criarQuadrado() {
+		Point centro = null;
 		double lado = 0;
 		
 		System.out.println("---- Quadrado ----");
@@ -114,11 +114,11 @@ public class ex3 {
 		System.out.print("Lado: ");
 		lado = sc.nextDouble();
 		
-		return new Quadrado(centro, lado);
+		return new Square(centro, lado);
 	}
 	
-	public static Retangulo criarRetangulo() {
-		Ponto centro = null;
+	public static Rectangle criarRetangulo() {
+		Point centro = null;
 		double comprimento = 0, largura = 0;
 		
 		System.out.println("---- Retângulo ----");
@@ -128,15 +128,15 @@ public class ex3 {
 		System.out.print("Largura: ");
 		largura = sc.nextDouble();
 		
-		return new Retangulo(centro, comprimento, largura);
+		return new Rectangle(centro, comprimento, largura);
 	}
 	
-	public static void printAll(HashMap<String, Circulo> circulos, HashMap<String, Quadrado> quadrados, HashMap<String, Retangulo> retangulos) {
+	public static void printAll(HashMap<String, Circle> circulos, HashMap<String, Square> quadrados, HashMap<String, Rectangle> retangulos) {
 		assert !(circulos.isEmpty() && quadrados.isEmpty() && retangulos.isEmpty());
 		
-		Iterator<Circulo> c_iterator = circulos.values().iterator();
-		Iterator<Quadrado> q_iterator = quadrados.values().iterator();
-		Iterator<Retangulo> r_iterator = retangulos.values().iterator();
+		Iterator<Circle> c_iterator = circulos.values().iterator();
+		Iterator<Square> q_iterator = quadrados.values().iterator();
+		Iterator<Rectangle> r_iterator = retangulos.values().iterator();
 		
 		printIterator(c_iterator, "Circulos");
 		printIterator(q_iterator, "Quadrados");
@@ -149,10 +149,10 @@ public class ex3 {
 			System.out.println(iterator.next().toString());
 	}
 	
-	public static Circulo procurarCirculo(HashMap<String, Circulo> circulos) {
+	public static Circle procurarCirculo(HashMap<String, Circle> circulos) {
 		assert !circulos.isEmpty();
 		String key = "";
-		Circulo c = null;
+		Circle c = null;
 		
 		System.out.print("Identificador (chave): ");
 		key = sc.next();

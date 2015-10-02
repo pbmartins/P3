@@ -1,5 +1,5 @@
 package aula2;
-import aula1.Data;
+import aula1.Date;
 
 import java.util.*;
 
@@ -155,7 +155,7 @@ public class Ex1 {
 		return op;
 	}
 	
-	public static Data newDate() {
+	public static Date newDate() {
 		int day = 1, month = 1, year = 1;
 		
 		System.out.print("Dia: ");
@@ -165,13 +165,13 @@ public class Ex1 {
 		System.out.print("Ano: ");
 		year = sc.nextInt();
 		
-		return new Data(day, month, year);
+		return new Date(day, month, year);
 	}
 	
 	public static Student newStudent() {
 		String name = "", course = "";
 		int cc = 0, nmec = 0;
-		Data bornDate = null, signupDate = null;
+		Date bornDate = null, signupDate = null;
 		
 		System.out.println("----- Estudante -----");
 		System.out.print("Nome: ");
@@ -180,7 +180,7 @@ public class Ex1 {
 		System.out.println("----- Data de nascimento -----");
 		bornDate = newDate();
 		Calendar todayDate = Calendar.getInstance();
-		signupDate = new Data(todayDate.get(Calendar.DAY_OF_MONTH), todayDate.get(Calendar.MONTH), todayDate.get(Calendar.YEAR));
+		signupDate = new Date(todayDate.get(Calendar.DAY_OF_MONTH), todayDate.get(Calendar.MONTH), todayDate.get(Calendar.YEAR));
 		System.out.print("CC: ");
 		cc = sc.nextInt();
 		System.out.print("Course: ");
@@ -196,7 +196,7 @@ public class Ex1 {
 	public static Employee newEmployee() {
 		String name = "";
 		int cc = 0, nfunc = 0, nif = 0;
-		Data bornDate = null, signupDate = null;
+		Date bornDate = null, signupDate = null;
 		
 		System.out.println("----- Funcionário -----");
 		System.out.print("Nome: ");
@@ -205,7 +205,7 @@ public class Ex1 {
 		System.out.println("----- Data de nascimento -----");
 		bornDate = newDate();
 		Calendar todayDate = Calendar.getInstance();
-		signupDate = new Data(todayDate.get(Calendar.DAY_OF_MONTH), todayDate.get(Calendar.MONTH), todayDate.get(Calendar.YEAR));
+		signupDate = new Date(todayDate.get(Calendar.DAY_OF_MONTH), todayDate.get(Calendar.MONTH), todayDate.get(Calendar.YEAR));
 		System.out.print("CC: ");
 		cc = sc.nextInt();
 		System.out.print("NFunc: ");

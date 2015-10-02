@@ -6,9 +6,9 @@ public class ex2 {
 	static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {
-		Lista lista = new Lista();
+		List lista = new List();
 		int cc;
-		Pessoa p;
+		Person p;
 		
 		for (;;) {
 			switch(showMenu()) {
@@ -61,10 +61,10 @@ public class ex2 {
 		return op;
 	}
 	
-	public static Pessoa novaPessoa() {
+	public static Person novaPessoa() {
 		String nome;
 		int cc;
-		Data dataNasc;
+		Date dataNasc;
 		
 		System.out.println("----- PESSOA -----");
 		System.out.print("Nome: ");
@@ -75,10 +75,10 @@ public class ex2 {
 		cc = sc.nextInt();
 		dataNasc = novaData();
 		
-		return new Pessoa(nome, cc, dataNasc);
+		return new Person(nome, cc, dataNasc);
 	}
 	
-	public static Data novaData() {
+	public static Date novaData() {
 		int dia, mes, ano;
 		
 		System.out.println("----- DATA -----");
@@ -89,7 +89,7 @@ public class ex2 {
 		System.out.print("Ano: ");
 		ano = sc.nextInt();
 		
-		return new Data(dia, mes, ano);
+		return new Date(dia, mes, ano);
 	}
 
 }

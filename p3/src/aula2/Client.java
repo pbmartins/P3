@@ -1,5 +1,5 @@
 package aula2;
-import aula1.Data;
+import aula1.Date;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -7,7 +7,7 @@ import java.util.Calendar;
 public class Client {
 	private static int idCounter;
 	private int id, cc;
-	private Data bornDate, signupDate;
+	private Date bornDate, signupDate;
 	private String name;
 	private ArrayList<Video> rentedVideos, allRentedVideos;
 	
@@ -15,7 +15,7 @@ public class Client {
 		idCounter = 0;
 	}
 	
-	public Client (String name, int cc, Data bornDate, Data signupDate) {
+	public Client (String name, int cc, Date bornDate, Date signupDate) {
 		assert name.length() > 0 && cc > 0;
 		
 		this.id = idCounter;
@@ -40,11 +40,11 @@ public class Client {
 		return this.cc;
 	}
 	
-	public Data getBornDate() {
+	public Date getBornDate() {
 		return this.bornDate;
 	}
 	
-	public Data getSignUpDate() {
+	public Date getSignUpDate() {
 		return this.bornDate;
 	}
 	

@@ -1,17 +1,17 @@
 package aula3;
-import aula1.Ponto;
+import aula1.Point;
 
 public class Square extends Figure {
 	private double width;
 	
-	public Square(Ponto centre, double width) {
+	public Square(Point centre, double width) {
 		super(centre);
 		if (width <= 0) throw new IllegalArgumentException("O lado tem de ser superior a 0");
 		this.width = width;
 	}
 	
 	public Square(double x, double y, double width) {
-		this(new Ponto(x, y), width);
+		this(new Point(x, y), width);
 	}
 	
 	public Square(double width) {

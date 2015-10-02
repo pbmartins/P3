@@ -1,25 +1,25 @@
 package aula3;
 
-import aula1.Data;
+import aula1.Date;
 
 public class ScholarshipHolder extends Student {
 	private double value;
 	
-	public ScholarshipHolder(String name, int cc, Data bornDate, Data signupDate) {
+	public ScholarshipHolder(String name, int cc, Date bornDate, Date signupDate) {
 		super(name, cc, bornDate, signupDate);
 	}
 	
-	public ScholarshipHolder(String name, int cc, Data bornDate) {
+	public ScholarshipHolder(String name, int cc, Date bornDate) {
 		super(name, cc, bornDate);
 	}
 	
-	public ScholarshipHolder(String name, int cc, Data bornDate, Data signupDate, double value) {
+	public ScholarshipHolder(String name, int cc, Date bornDate, Date signupDate, double value) {
 		super(name, cc, bornDate, signupDate);
 		if (value <= 0) throw new AssertionError("O valor da bolsa deve ser positivo");
 		this.value = value;
 	}
 	
-	public ScholarshipHolder(String name, int cc, Data bornDate, double value) {
+	public ScholarshipHolder(String name, int cc, Date bornDate, double value) {
 		super(name, cc, bornDate);
 		if (value <= 0) throw new AssertionError("O valor da bolsa deve ser positivo");
 		this.value = value;
@@ -35,7 +35,7 @@ public class ScholarshipHolder extends Student {
 	}
 	
 	public final String toString() {
-		return super.toString() + "\nValor da bolsa: " + this.value;
+		return super.toString() + "\nValor da bolsa: " + this.value + " euros";
 	}
 	
 }

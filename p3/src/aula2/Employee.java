@@ -1,10 +1,10 @@
 package aula2;
-import aula1.Data;
+import aula1.Date;
 
 public class Employee extends Client {
 	private int nfunc, nif;
 	
-	public Employee(String name, int cc, Data bornDate, Data signupDate, int nfunc, int nif) {
+	public Employee(String name, int cc, Date bornDate, Date signupDate, int nfunc, int nif) {
 		super(name, cc, bornDate, signupDate);
 		assert nfunc > 0 && nif > 0;
 		

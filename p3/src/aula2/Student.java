@@ -1,11 +1,11 @@
 package aula2;
-import aula1.Data;
+import aula1.Date;
 
 public class Student extends Client {
 	private int nmec;
 	private String course;
 	
-	public Student(String name, int cc, Data bornDate, Data signupDate, int nmec, String course) {
+	public Student(String name, int cc, Date bornDate, Date signupDate, int nmec, String course) {
 		super(name, cc, bornDate, signupDate);
 		assert course.length() > 0 && nmec > 0;
 		
