@@ -2,8 +2,8 @@ package aula4;
 import java.util.*;
 
 public class VideoCatalogue {
-	HashMap<Integer, Video> catalogue;
-	ArrayList<Integer> keys;
+	Map<Integer, Video> catalogue;
+	List<Integer> keys;
 	int size;
 	
 	public VideoCatalogue(int maxVideo){
