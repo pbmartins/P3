@@ -1,0 +1,4 @@
+CSV
+Maria João Sousa	9123454	12/05/1989
+Rui Manuel Costa	9123454	12/05/1989
+Joaquim Ferreira	9312452	18/04/1964
