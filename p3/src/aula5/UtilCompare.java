@@ -1,7 +1,5 @@
 package aula5;
 
-import apple.laf.JRSUIUtils;
-
 import java.util.*;
 
 public class UtilCompare {

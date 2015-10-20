@@ -8,13 +8,14 @@ public class Motorcycle extends Vehicle implements Motorized {
     private static final Category category = Category.A;
     private static final int numWheels = 2;
 
-    private int engineSize, power, numPassengers, weight, year, maxSpeed, consumption, fuel;
+    private int engineSize, power, numPassengers, weight, year, maxSpeed, consumption;
     private String plate, color;
     private Driver driver;
+    private Fuel fuel;
     private ArrayList<Person> passengers;
 
-    public Motorcycle(int year, String plate, String color, int engineSize, int power, int consumption, int fuel, int maxSpeed, int numPassengers, int weight) {
-        if (year <= 1900 || plate.length() == 0 || color.length() == 0 || engineSize <= 0 || power <= 0 || consumption <= 0 || fuel <= 0 || maxSpeed <= 0)
+    public Motorcycle(int year, String plate, String color, int engineSize, int power, int consumption, Fuel fuel, int maxSpeed, int numPassengers, int weight) {
+        if (year <= 1900 || plate.length() == 0 || color.length() == 0 || engineSize <= 0 || power <= 0 || consumption <= 0 || fuel == null || maxSpeed <= 0)
             throw new IllegalArgumentException("Alguns argumentos passados não são válidos.");
         if (weight > 750 || weight <= 0)
             throw new IllegalArgumentException("Peso bruto inválido.");
@@ -62,7 +63,7 @@ public class Motorcycle extends Vehicle implements Motorized {
         return this.consumption;
     }
 
-    public int fuel() {
+    public Fuel fuel() {
         return this.fuel;
     }
 
@@ -107,7 +108,7 @@ public class Motorcycle extends Vehicle implements Motorized {
     }
 
     @Override public String toString() {
-        String to_return = super.toString() + "\nCilindrada: " + this.engineSize + " cm^3\nPotência: " + this.power + " kW\nTipo de carta: " + category;
+        String to_return = super.toString() + "\nCilindrada: " + this.engineSize + " cm^3\nPotência: " + this.power + " kW\nTipo de carta: " + category + "\nConsumo: " + this.consumption + "/100km\nTipo de combustível: " + this.fuel;
         if (this.driver != null)
             to_return += "\nCondutor: " + this.driver.toString();
         if (this.passengers.size() > 0) {

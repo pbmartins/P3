@@ -7,7 +7,7 @@ public interface Motorized {
 
     int consumption();
 
-    int fuel();
+    Fuel fuel();
 
     Category category();
 
