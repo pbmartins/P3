@@ -1,6 +1,8 @@
 package aula6;
 
-public enum FishType {
+import java.io.Serializable;
+
+public enum FishType implements Serializable {
     FRESH, FROZEN;
 
     @Override public String toString() {

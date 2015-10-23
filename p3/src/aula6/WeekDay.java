@@ -1,6 +1,8 @@
 package aula6;
 
-public enum WeekDay {
+import java.io.Serializable;
+
+public enum WeekDay implements Serializable {
     MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY;
 
     @Override public String toString() {

@@ -1,8 +1,10 @@
 package aula6;
 
 import java.util.*;
+import java.io.*;
 
-public class Menu {
+public class Menu implements Serializable {
+    private static final long serialVersionUID = 75264722956L;
     private String name;
     private String local;
     private Map<WeekDay, List<Plate>> menu;
@@ -29,6 +31,12 @@ public class Menu {
 
     public Map<WeekDay, List<Plate>> menu() {
         return this.menu;
+    }
+
+    public List<Plate> dayMenu(WeekDay day) {
+        if (day == null)
+            throw new IllegalArgumentException("Dia inválido");
+        return this.menu.get(day);
     }
 
     public boolean addPlate(Plate p, WeekDay day) {

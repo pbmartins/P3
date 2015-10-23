@@ -1,6 +1,8 @@
 package aula6;
 
-public enum MeatVariety {
+import java.io.Serializable;
+
+public enum MeatVariety implements Serializable {
     COW, PIG, TURKEY, CHICKEN, WEAL, RABBIT;
 
     @Override public String toString() {

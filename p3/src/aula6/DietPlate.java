@@ -8,6 +8,10 @@ public class DietPlate extends Plate {
         this.MAX_CALORIES = maxCalories;
     }
 
+    public final double maxCalories() {
+        return this.MAX_CALORIES;
+    }
+
     @Override public boolean addIngredient(Food f) {
         if (f == null)
             throw new IllegalArgumentException("Ingrediente inválido.");

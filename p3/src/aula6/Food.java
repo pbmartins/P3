@@ -1,6 +1,8 @@
 package aula6;
 
-public abstract class Food implements Comparable<Food> {
+import java.io.Serializable;
+
+public abstract class Food implements Comparable<Food>, Serializable {
 
     public abstract double proteins();
 

@@ -1,8 +1,9 @@
 package aula6;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Plate implements Comparable<Plate> {
+public class Plate implements Comparable<Plate>, Serializable {
     private String name;
     private List<Food> composition;
 

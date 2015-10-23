@@ -1,6 +1,8 @@
 package aula6;
 
 import java.util.*;
+import java.nio.file.*;
+import java.io.*;
 
 public class Carte {
     private Map<Integer, Food> ingredients;
@@ -33,6 +35,19 @@ public class Carte {
         this.ingredients.put(ingredientsCounter++, new Vegetable(name, proteins, calories, weight));
     }
 
+    public String ingredientsToString() {
+        String to_return = "";
+        for (int key : this.ingredients.keySet())
+            to_return += "ID: " + key + ", " + this.ingredients.get(key).toString() + "\n";
+        return to_return;
+    }
+
+    public Food getIngredient(int key) {
+        if (!this.ingredients.containsKey(key))
+            throw new AssertionError("Não existe nenhum ingrediente com esse identificador.");
+        return this.ingredients.get(key);
+    }
+
     // Dishes
     public void newPlate(String name) {
         if (this.plates.containsKey(name))
@@ -58,8 +73,15 @@ public class Carte {
         return this.plates.get(name).addIngredient(f);
     }
 
-    public boolean addIngredientFromPlate(String name, Food f) {
+    public boolean removeIngredientFromPlate(String name, Food f) {
         return this.plates.get(name).removeIngredient(f);
+    }
+
+    public String platesToString() {
+        String to_return = "";
+        for (String key : this.plates.keySet())
+            to_return += this.plates.get(key).toString() + "\n";
+        return to_return;
     }
 
     // Menu
@@ -73,5 +95,29 @@ public class Carte {
 
     public String toString() {
         return this.menu.toString();
+    }
+
+    public void saveOnFile(String path) throws IOException {
+        String[] extension = path.split(".");
+        if (!extension[extension.length - 1].equals("ser"))
+            throw new IllegalArgumentException("Extensão inválida");
+        Path p = Paths.get(System.getProperty("user.home"), path);
+        ObjectOutputStream objectOut = new ObjectOutputStream(new FileOutputStream(p.toString()));
+        objectOut.writeObject(this.menu);
+        objectOut.close();
+    }
+
+    public void readFromFile(String path) throws IOException {
+        String[] extension = path.split(".");
+        if (!extension[extension.length - 1].equals("ser"))
+            throw new IllegalArgumentException("Extensão inválida");
+        Path p = Paths.get(System.getProperty("user.home"), path);
+        ObjectInputStream objectIn = new ObjectInputStream(new FileInputStream(p.toString()));
+        try {
+            this.menu = (Menu)objectIn.readObject();
+            objectIn.close();
+        } catch(ClassNotFoundException e) {
+            System.err.println("Classe não encontrada");
+        }
     }
 }
