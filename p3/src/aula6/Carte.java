@@ -98,7 +98,7 @@ public class Carte {
     }
 
     public void saveOnFile(String path) throws IOException {
-        String[] extension = path.split(".");
+        String[] extension = path.split("\\.");
         if (!extension[extension.length - 1].equals("ser"))
             throw new IllegalArgumentException("Extensão inválida");
         Path p = Paths.get(System.getProperty("user.home"), path);
@@ -108,7 +108,7 @@ public class Carte {
     }
 
     public void readFromFile(String path) throws IOException {
-        String[] extension = path.split(".");
+        String[] extension = path.split("\\.");
         if (!extension[extension.length - 1].equals("ser"))
             throw new IllegalArgumentException("Extensão inválida");
         Path p = Paths.get(System.getProperty("user.home"), path);
