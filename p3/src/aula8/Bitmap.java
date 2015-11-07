@@ -31,6 +31,27 @@ public class Bitmap {
         this.bitmapInfoHeader = bih;
         this.pixelData = pixelData;
         this.nameOfFile = nameOfFile;
+
+        if (bih.getBitCount() == 24)
+            this.rgb = new byte[Math.abs(bih.getHeight() * bih.getWidth() * 3)];
+        else
+            this.rgb = new byte[Math.abs(bih.getHeight() * bih.getWidth() * 4)];
+
+        int k = 0;
+        for (int i = 0; i < this.pixelData.length; i++) {
+            for (int j = 0; j < this.pixelData[0].length; j++) {
+                if (this.bitmapInfoHeader.getBitCount() == 24) {
+                    rgb[k++] = pixelData[i][j].getBGR()[0];
+                    rgb[k++] = pixelData[i][j].getBGR()[1];
+                    rgb[k++] = pixelData[i][j].getBGR()[2];
+                } else {
+                    rgb[k++] = pixelData[i][j].getRGBA()[0];
+                    rgb[k++] = pixelData[i][j].getRGBA()[1];
+                    rgb[k++] = pixelData[i][j].getRGBA()[2];
+                    rgb[k++] = pixelData[i][j].getRGBA()[3];
+                }
+            }
+        }
     }
 
     public Bitmap(String path) {
@@ -58,24 +79,10 @@ public class Bitmap {
             // Get pixel data
             int w = Math.abs(this.bitmapInfoHeader.getWidth());
             int h = Math.abs(this.bitmapInfoHeader.getHeight());
-           /* BufferedImage bi = ImageIO.read(new File(path));
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(bi, "bmp", baos);
-            baos.flush();
-            rgb = baos.toByteArray();
-            baos.close();*/
 
             rgb = new byte[Math.abs(h * w * 4)];
             file.read(rgb);
             file.close();
-
-/*          byte[] newarr = new byte[rgb.length];
-            for (int i = 0; i < h; i++) {
-                for (int j = 0; j < rowSize; j++) {
-                    newarr[i * w * 3 + j] = rgb[(h - i - 1) * w * 3 + j];
-                }
-            }
-            rgb = newarr;*/
 
             this.pixelData = new Pixel[h][w];
 
@@ -96,9 +103,6 @@ public class Bitmap {
                     this.pixelData[i][j] = new Pixel(R, G, B, A);
                 }
             }
-
-            getRGBQuadData();
-            //getRGBData();
         } catch (IOException e) {
             System.err.format("IOException: %s\n", e);
         }
@@ -158,13 +162,7 @@ public class Bitmap {
         }
     }
 
-    public void saveToAFourth(String path) {
-        if (path == null || path.length() == 0)
-            throw new IllegalArgumentException("Caminho inválido.");
-        String[] info = path.split("\\.");
-        if (!info[info.length - 1].equals("bmp"))
-            throw new IllegalArgumentException("Extensão inválido.");
-
+    public Bitmap transformToAFourth() {
         int newWidth = this.bitmapInfoHeader.getWidth() / 2;
         int newHeight = this.bitmapInfoHeader.getHeight() / 2;
 
@@ -185,19 +183,12 @@ public class Bitmap {
             }
         }
 
-        Bitmap resized = new Bitmap(newBFH, newBIH, newPixelData, path);
-        resized.save(path);
+        return new Bitmap(newBFH, newBIH, newPixelData, this.nameOfFile);
     }
 
-    public void saveFlipped(String path, int type) {
-        if (path == null || path.length() == 0)
-            throw new IllegalArgumentException("Caminho inválido.");
-        String[] info = path.split("\\.");
-        if (!info[info.length - 1].equals("bmp"))
-            throw new IllegalArgumentException("Extensão inválido.");
+    public Bitmap transformFlipped(int type) {
         if (type != 0 && type != 1)
             throw new IllegalArgumentException("Só é aceite: Horizontal(0) e Vertical(1).");
-
 
         Pixel[][] newPixelData = new Pixel[this.pixelData.length][this.pixelData[0].length];
 
@@ -215,8 +206,33 @@ public class Bitmap {
             }
         }
 
-        Bitmap flipped = new Bitmap(this.bitmapFileHeader, this.bitmapInfoHeader, newPixelData, path);
-        flipped.save(path);
+        return new Bitmap(this.bitmapFileHeader, this.bitmapInfoHeader, newPixelData, this.nameOfFile);
+    }
+
+    public void saveToAFourth(String path) {
+        if (path == null || path.length() == 0)
+            throw new IllegalArgumentException("Caminho inválido.");
+        String[] info = path.split("\\.");
+        if (!info[info.length - 1].equals("bmp"))
+            throw new IllegalArgumentException("Extensão inválido.");
+
+        transformToAFourth().save(path);
+    }
+
+    public void saveFlipped(String path, int type) {
+        if (path == null || path.length() == 0)
+            throw new IllegalArgumentException("Caminho inválido.");
+        String[] info = path.split("\\.");
+        if (!info[info.length - 1].equals("bmp"))
+            throw new IllegalArgumentException("Extensão inválido.");
+
+        transformFlipped(type).save(path);
+    }
+
+    public void setNameOfFile(String path) {
+        if (path == null || path.length() == 0)
+            throw new IllegalArgumentException("Nome do ficheiro inválido.");
+        this.nameOfFile = path;
     }
 
     public String getNameOfFile() {
@@ -239,7 +255,7 @@ public class Bitmap {
         return this.rgbQuad;
     }
 
-    public byte[] getRGB() {
+    public byte[] getData() {
         return this.rgb;
     }
 
@@ -257,30 +273,5 @@ public class Bitmap {
         return ((Bitmap)b).getNameOfFile().equals(this.nameOfFile) && ((Bitmap)b).getBitmapFileHeader().equals(this.bitmapFileHeader) &&
                 ((Bitmap)b).getBitmapInfoHeader().equals(this.bitmapInfoHeader) && Arrays.equals(((Bitmap)b).getPixelData(), this.pixelData) &&
                 Arrays.equals(((Bitmap)b).getRGBQuad(), this.rgbQuad);
-    }
-
-    private void getRGBQuadData() {
-        this.rgbQuad = new byte[pixelData.length * pixelData[0].length * 4];
-        int k = 0;
-        for (int i = 0; i < pixelData.length; i++) {
-            for (int j = 0; j < pixelData[0].length; j++) {
-                this.rgbQuad[k++] = (byte)0;
-                this.rgbQuad[k++] = pixelData[i][j].getRGB()[2];
-                this.rgbQuad[k++] = pixelData[i][j].getRGB()[1];
-                this.rgbQuad[k++] = pixelData[i][j].getRGB()[0];
-            }
-        }
-    }
-
-    private void getRGBData() {
-        this.rgb = new byte[pixelData.length * pixelData[0].length * 3];
-        int k = 0;
-        for (int i = 0; i < pixelData.length; i++) {
-            for (int j = 0; j < pixelData[0].length; j++) {
-                this.rgb[k++] = pixelData[i][j].getRGB()[2];
-                this.rgb[k++] = pixelData[i][j].getRGB()[1];
-                this.rgb[k++] = pixelData[i][j].getRGB()[0];
-            }
-        }
     }
 }

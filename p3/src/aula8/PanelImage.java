@@ -1,12 +1,9 @@
 package aula8;
 
-import javafx.scene.input.PickResult;
 
 import javax.swing.*;
 import java.awt.image.*;
 import java.awt.*;
-import java.io.*;
-import javax.imageio.*;
 
 public class PanelImage extends JPanel {
     BufferedImage bi;
@@ -15,6 +12,7 @@ public class PanelImage extends JPanel {
      * @param w - Image Width (columns)
      * @param h - Image Heigth (row)
      */
+
     PanelImage(byte[] pixels, int w, int h, boolean quad){
         if (quad) {
             bi = new BufferedImage(w, h, BufferedImage.TYPE_4BYTE_ABGR);
@@ -24,6 +22,7 @@ public class PanelImage extends JPanel {
             bi.setRGB(0, 0, w, h, byteArrayToIntArray(pixels, w, h), 0, w);
         }
         this.setPreferredSize(new Dimension(w, h));
+        this.setVisible(true);
     }
 
     public void paintComponent(Graphics g){
