@@ -49,7 +49,7 @@ public class Bitmap {
             this.bitmapInfoHeader = new BitmapInfoHeader(bih);
 
             // Get pixel data
-            byte[] data = new byte[Math.abs(this.bitmapInfoHeader.getHeight() * this.bitmapInfoHeader.getWidth() * 3)];
+            byte[] data = new byte[Math.abs(this.bitmapInfoHeader.getHeight() * this.bitmapInfoHeader.getWidth() * 4)];
             file.read(data);
             file.close();
 
@@ -58,7 +58,7 @@ public class Bitmap {
             int k = 0;
             for (int i = 0; i < this.pixelData.length; i++) {
                 for (int j = 0; j < this.pixelData[0].length; j++) {
-                    byte R = 0, G = 0, B = 0;
+                    byte R = 0, G = 0, B = 0, A = 0;
                     if (this.bitmapInfoHeader.getBitCount() == 24) {
                         B = data[k++];
                         G = data[k++];
@@ -67,13 +67,25 @@ public class Bitmap {
                         R = data[k++];
                         G = data[k++];
                         B = data[k++];
+                        A = data[k++];
                     }
-                    this.pixelData[i][j] = new Pixel(R, G, B);
+                    this.pixelData[i][j] = new Pixel(R, G, B, A);
                 }
             }
         } catch (IOException e) {
             System.err.format("IOException: %s\n", e);
         }
+    }
+
+    final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();
+    public static String bytesToHex(byte[] bytes) {
+        char[] hexChars = new char[bytes.length * 2];
+        for ( int j = 0; j < bytes.length; j++ ) {
+            int v = bytes[j] & 0xFF;
+            hexChars[j * 2] = hexArray[v >>> 4];
+            hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+        }
+        return new String(hexChars);
     }
 
     public void save(String path) {
@@ -90,7 +102,7 @@ public class Bitmap {
                     if (this.bitmapInfoHeader.getBitCount() == 24)
                         file.write(this.pixelData[i][j].getBGR());
                     else
-                        file.write(this.pixelData[i][j].getRGB());
+                        file.write(this.pixelData[i][j].getRGBA());
                 }
             }
             file.close();
@@ -129,9 +141,9 @@ public class Bitmap {
         int newWidth = this.bitmapInfoHeader.getWidth() / 2;
         int newHeight = this.bitmapInfoHeader.getHeight() / 2;
 
-        BitmapFileHeader newBFH = new BitmapFileHeader(Math.abs(newHeight * newWidth * 3), this.bitmapFileHeader.getOffBits());
+        BitmapFileHeader newBFH = new BitmapFileHeader(Math.abs(newHeight * newWidth * 4), this.bitmapFileHeader.getOffBits());
         BitmapInfoHeader newBIH = new BitmapInfoHeader(newWidth, newHeight, this.bitmapInfoHeader.getBitCount(),
-                this.bitmapInfoHeader.getCompression(), this.bitmapInfoHeader.getSizeImage(), this.bitmapInfoHeader.getxPelsPerMeter(),
+                this.bitmapInfoHeader.getCompression(), Math.abs(newHeight * newWidth * 4), this.bitmapInfoHeader.getxPelsPerMeter(),
                 this.bitmapInfoHeader.getyPelsPerMeter(), this.bitmapInfoHeader.getClrUsed(), this.bitmapInfoHeader.getClrImportant());
 
         Pixel[][] newPixelData = new Pixel[Math.abs(newHeight)][newWidth];
