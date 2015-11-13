@@ -1,9 +1,10 @@
-package aula2;
+package aula4.ex3;
 import aula1.ex2.Date;
+import aula4.ex1.Student;
 
 import java.util.*;
 
-public class Ex1 {
+public class Ex3 {
 
 	static Scanner sc = new Scanner(System.in);
 	

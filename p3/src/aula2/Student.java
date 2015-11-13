@@ -1,5 +1,5 @@
 package aula2;
-import aula1.Date;
+import aula1.ex2.Date;
 
 public class Student extends Client {
 	private int nmec;

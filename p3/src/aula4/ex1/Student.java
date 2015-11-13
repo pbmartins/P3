@@ -1,31 +1,42 @@
-package aula2;
-import aula1.ex2.Date;
-
+package aula4.ex1;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class Client {
-	private static int idCounter;
+import aula1.ex2.Date;
+import aula4.ex3.Client;
+import aula4.ex3.Video;
+
+public class Student extends Client {
 	private int id, cc;
 	private Date bornDate, signupDate;
 	private String name;
 	private ArrayList<Video> rentedVideos, allRentedVideos;
+	private int nmec;
+	private String course;
 	
-	static {
-		idCounter = 0;
-	}
-	
-	public Client (String name, int cc, Date bornDate, Date signupDate) {
-		assert name.length() > 0 && cc > 0;
+	public Student(String name, int cc, Date bornDate, Date signupDate, int nmec, String course) {
+		if (name.length() <= 0 || course.length() <= 0)
+			throw new IllegalArgumentException("O nome e/ou curso não podem ser campos vazios.");
+		if (cc <= 0 || nmec <= 0)
+			throw new IllegalArgumentException("O CC e/ou número mecanográfico têm de ser superiores a 0.");
 		
-		this.id = idCounter;
+		this.id = super.getIDCounter();
 		this.name = name;
 		this.cc = cc;
 		this.bornDate = bornDate;
 		this.signupDate = signupDate;
 		this.rentedVideos = new ArrayList<Video>();
 		this.allRentedVideos = new ArrayList<Video>();
-		idCounter++;
+		this.nmec = nmec;
+		this.course = course;
+	}
+	
+	public int getNMec() {
+		return this.nmec;
+	}
+	
+	public String getCourse() {
+		return this.course;
 	}
 	
 	public int getID() {
@@ -71,6 +82,7 @@ public class Client {
 	}
 	
 	public String toString() {
-		return "Nome: " + this.name + "\nCC:" + this.cc + "\nData de nascimento:" + this.bornDate.toString()  + "\nData de inscrição:" + this.signupDate.toString();
+		return "Nome: " + this.name + "\nCC:" + this.cc + "\nData de nascimento:" + this.bornDate.toString()  + "\nData de inscrição:" + this.signupDate.toString() + "\nNMec:" + this.nmec + "\nCourse:" + this.course;
 	}
+
 }
