@@ -1,28 +1,26 @@
-package aula9.ex3;
+package aula10.ex1;
 
 import java.util.*;
 
-public class PersonList implements Iterable {
-	private Node top;
-    private Node end;
+public class GenericList<T> implements Iterable {
+	private Node<T> top;
+    private Node<T> end;
     private int size;
 	
-	public PersonList() {
+	public GenericList() {
 		top = null;
         end = null;
         size = 0;
 	}
 
-    public void add(Person p) {
+    public void addElem(T p) {
         if (p == null)
-            throw new IllegalArgumentException("Pessoa inválida");
-        if (existsCC(p.getCC()))
-            throw new AssertionError("Já existe uma pessoa associada a esse CC");
+            throw new IllegalArgumentException("Argumento inválido");
 
         if (top == null)
-            end = top = new Node(p);
+            end = top = new Node<>(p);
         else {
-            Node n = new Node(p);
+            Node<T> n = new Node<>(p);
             n.previous = end;
             end.next = n;
             end = n;
@@ -30,13 +28,11 @@ public class PersonList implements Iterable {
         size++;
     }
 
-    public boolean removePerson(Person p) {
+    public boolean removeElem(T p) {
         if (p == null)
-            throw new IllegalArgumentException("Pessoa inválida");
-        if (!existsCC(p.getCC()))
-            return false;
+            throw new IllegalArgumentException("Argumento inválido");
 
-        Node n = top;
+        Node<T> n = top;
         if (n.p.equals(p)) {
             top = n.next;
             top.previous = null;
@@ -49,68 +45,50 @@ public class PersonList implements Iterable {
         return true;
     }
 
-    public int totalPeople() {
+    public int totalElem() {
         return this.size;
     }
-	
-	public Person searchPerson(int cc) {
-        if (cc <= 0)
-            throw new IllegalArgumentException("CC inválido");
 
-		Node n = top;
-
-        while (n != null) {
-            if (n.p.getCC() == cc)
-                return n.p;
-            n = n.next;
-        }
-
-        return null;
-	}
-	
 	public String toString() {
 		if (size == 0)
             throw new AssertionError("Lista está vazia");
 		String to_return = "";
 
-        Node n = top;
+        Node<T> n = top;
         while (n != null) {
             to_return += n.p.toString();
             n = n.next;
         }
-		
+
 		return to_return;
 	}
 
-    public BFIterator<Person> iterator() {
+    public BFIterator<T> iterator() {
         return (this).new InternalIterator();
     }
 
-    private boolean existsCC(int cc) {
-        return searchPerson(cc) != null;
-    }
 
-    private static class Node {
-        Person p;
+    private static class Node<T> {
+        T p;
         Node next;
         Node previous;
 
-        public Node(Person p) {
+        public Node(T p) {
             if (p == null)
-                throw new IllegalArgumentException("Pessoa inválida");
+                throw new IllegalArgumentException("Argumento inválido");
             this.p = p;
         }
     }
 
-    private class InternalIterator implements Iterator<Person>, BFIterator<Person> {
-        Node n = top;
-        Node last = null;
+    private class InternalIterator implements Iterator<T>, BFIterator<T> {
+        Node<T> n = top;
+        Node<T> last = null;
 
         public boolean hasNext() {
             return n != null;
         }
 
-        public Person next() {
+        public T next() {
             if (hasNext()) {
                 last = n;
                 n = n.next;
@@ -123,7 +101,7 @@ public class PersonList implements Iterable {
             return last != null;
         }
 
-        public Person previous() {
+        public T previous() {
             if (hasPrevious()) {
                 n = last;
                 last = last.previous;
@@ -133,7 +111,7 @@ public class PersonList implements Iterable {
         }
 
         public void remove() {
-            removePerson(n.p);
+            removeElem(n.p);
             n = top;
         }
     }

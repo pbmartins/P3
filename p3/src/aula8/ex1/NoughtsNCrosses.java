@@ -10,28 +10,7 @@ public class NoughtsNCrosses extends JFrame {
     private Player currentPlayer;
     private JToggleButton[][] btns;
     private int numPlays = 0;
-    private ActionListener al = new ActionListener() {
-        @Override public void actionPerformed(ActionEvent e) {
-            if (!(e.getSource() instanceof JToggleButton))
-                throw new IllegalArgumentException("Só são admitidos JToggleButtons.");
-
-            ((JToggleButton)e.getSource()).setText(currentPlayer.toString());
-            ((JToggleButton)e.getSource()).setFont(new Font("Arial", Font.PLAIN, 40));
-            ((JToggleButton)e.getSource()).setEnabled(false);
-            if (checkWinner(currentPlayer)) {
-                JOptionPane.showMessageDialog(null, "Venceu o jogador " + currentPlayer);
-                System.exit(0);
-            } else if (++numPlays == 9) {
-                JOptionPane.showMessageDialog(null, "O jogo terminou empatado!");
-                System.exit(0);
-            }
-
-            if (currentPlayer == Player.X)
-                currentPlayer = Player.O;
-            else
-                currentPlayer = Player.X;
-        }
-    };
+    private ActionListener al;
 
     private boolean checkWinner(Player p) {
         for (int i = 0; i < btns.length; i++) {
@@ -95,6 +74,27 @@ public class NoughtsNCrosses extends JFrame {
                 panel.add(btn);
             }
         }
+
+        al = e -> {
+                if (!(e.getSource() instanceof JToggleButton))
+                    throw new IllegalArgumentException("Só são admitidos JToggleButtons.");
+
+                ((JToggleButton)e.getSource()).setText(currentPlayer.toString());
+                ((JToggleButton)e.getSource()).setFont(new Font("Arial", Font.PLAIN, 40));
+                ((JToggleButton)e.getSource()).setEnabled(false);
+                if (checkWinner(currentPlayer)) {
+                    JOptionPane.showMessageDialog(null, "Venceu o jogador " + currentPlayer);
+                    System.exit(0);
+                } else if (++numPlays == 9) {
+                    JOptionPane.showMessageDialog(null, "O jogo terminou empatado!");
+                    System.exit(0);
+                }
+
+                if (currentPlayer == Player.X)
+                    currentPlayer = Player.O;
+                else
+                    currentPlayer = Player.X;
+            };
         super.setContentPane(panel);
         super.setVisible(true);
     }

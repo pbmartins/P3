@@ -1,56 +1,41 @@
 package aula5.ex1;
 import aula1.ex3.Point;
 
-public class Square extends Figure {
-	private double width;
-	private Point centre;
+public class Square extends Rectangle {
 	
 	public Square(Point centre, double width) {
-		if (centre == null)
-			throw new IllegalArgumentException("Centro não válido.");
-		if (width <= 0)
-			throw new IllegalArgumentException("O lado tem de ser superior a 0");
-		this.width = width;
-		this.centre = centre;
+		super(centre, width, width);
 	}
 	
 	public Square(double x, double y, double width) {
-		this(new Point(x, y), width);
+		super(new Point(x, y), width, width);
 	}
 	
 	public Square(double width) {
-		this(0, 0, width);
+		super(0, 0, width, width);
 	}
 	
 	public Square(Square s) {
 		this(s.getCentre(), s.getWidth());
 	}
 
-	public Point getCentre() {
-		return this.centre;
+    @Override public double area() {
+		return Math.pow(super.getWidth(), 2);
 	}
-	
-	public double getWidth() {
-		return this.width;
-	}
-	
-	public double area() {
-		return Math.pow(this.width, 2);
-	}
-	
-	public double perimeter() {
-		return 4 * this.width;
+
+    @Override public double perimeter() {
+		return 4 * super.getWidth();
 	}
 	
 	@Override public String toString() {
-		return super.toString() + "Lado: " + this.width + "\n";
+		return super.toString() + "Lado: " + super.getWidth() + "\n";
 	}
-	
+
 	public boolean equals(Object s) {
 		if (s == null)
 			return false;
 		if (s.getClass() != this.getClass())
 			return false;
-		return this.getCentre().equals(((Square)s).getCentre()) && this.width == ((Square)s).getWidth();
+		return super.getCentre().equals(((Square)s).getCentre()) && super.getWidth() == ((Square)s).getWidth();
 	}
 }
