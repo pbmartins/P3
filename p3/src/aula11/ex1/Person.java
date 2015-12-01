@@ -1,6 +1,6 @@
 package aula11.ex1;
 
-import aula9.ex3.Date;
+import aula09.ex3.Date;
 
 import java.util.Calendar;
 
@@ -48,6 +48,6 @@ public class Person {
 			return false;
 		if (p.getClass() != this.getClass())
 			return false;
-		return this.name == ((aula9.ex3.Person)p).getName() && this.cc == ((aula9.ex3.Person)p).getCC() && ((aula9.ex3.Person)p).getBornDate().equals(this.bornDate);
+		return this.name == ((aula09.ex3.Person)p).getName() && this.cc == ((aula09.ex3.Person)p).getCC() && ((aula09.ex3.Person)p).getBornDate().equals(this.bornDate);
 	}
 }

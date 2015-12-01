@@ -6,11 +6,11 @@ public class Date {
 	private int day;
 	private int month;
 	private int year;
-    private static aula9.ex3.Date today;
+    private static aula09.ex3.Date today;
 
-	public static aula9.ex3.Date today() {
+	public static aula09.ex3.Date today() {
 		Calendar cal = Calendar.getInstance();
-        today = new aula9.ex3.Date(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR));
+        today = new aula09.ex3.Date(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR));
         return today;
 	}
 	
@@ -42,7 +42,7 @@ public class Date {
 			return false;
 		if (this.getClass() != d.getClass())
 			return false;
-		return this.day == ((aula9.ex3.Date)d).getDay() && this.month == ((aula9.ex3.Date)d).getMonth() && this.year == ((aula9.ex3.Date)d).getYear();
+		return this.day == ((aula09.ex3.Date)d).getDay() && this.month == ((aula09.ex3.Date)d).getMonth() && this.year == ((aula09.ex3.Date)d).getYear();
 	}
 	
 	private boolean validateDate(int d, int m, int y) {

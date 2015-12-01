@@ -1,5 +1,5 @@
 package aula11.ex2;
-import aula1.ex3.Point;
+import aula01.ex3.Point;
 
 public class Square extends Rectangle {
 	

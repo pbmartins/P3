@@ -1,6 +1,6 @@
 package aula11.ex1;
 
-import aula5.ex1.*;
+import aula05.ex1.*;
 import java.util.*;
 
 public class TestGeneric {

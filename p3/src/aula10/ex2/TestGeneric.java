@@ -1,10 +1,9 @@
 package aula10.ex2;
 
-import aula10.ex1.*;
-import aula5.ex1.Circle;
-import aula5.ex1.Figure;
-import aula5.ex1.Rectangle;
-import aula5.ex1.Square;
+import aula05.ex1.Circle;
+import aula05.ex1.Figure;
+import aula05.ex1.Rectangle;
+import aula05.ex1.Square;
 
 import java.util.Iterator;
 

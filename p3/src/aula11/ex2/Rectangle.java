@@ -1,6 +1,6 @@
 package aula11.ex2;
 
-import aula1.ex3.Point;
+import aula01.ex3.Point;
 
 public class Rectangle extends Figure {
 	private double width, height;
