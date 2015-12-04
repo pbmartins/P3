@@ -4,19 +4,21 @@ import aula01.ex2.Date;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.*;
 import aula12.ex3.plugins.*;
 
 public class Ex3 {
 
 	static Scanner sc = new Scanner(System.in);
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		ContactList lista = new ContactList();
 		int number;
 		Contact p;
         String path, type;
         File f;
         Scanner sf;
+        Formats fm;
 
         // Read Plugins
         File proxyList = new File("src/aula12/ex3/plugins");
@@ -29,7 +31,7 @@ public class Ex3 {
             }
         }
 
-        Nokia nokia = null;
+        /*Nokia nokia = null;
         CSV csv = null;
         vCard vcard = null;
         for (Formats format : plgs) {
@@ -41,7 +43,7 @@ public class Ex3 {
                 vcard = (vCard)format;
             else
                 throw new IllegalArgumentException("Plugin not supported");
-        }
+        }*/
         // End reading plugins
 
 
@@ -82,17 +84,19 @@ public class Ex3 {
                     } catch (FileNotFoundException e) {
                         System.err.println("Ficheiro não encontrado.");
                     }
+                    final Class<?> cl = Class.forName("aula12.ex3.plugins." + type);
+                    fm = plgs.stream().filter(format -> format.getClass() == cl).collect(Collectors.toList()).get(0);
                     switch(type) {
                         case "Nokia":
-                            for (Contact c : nokia.readFile(path))
+                            for (Contact c : fm.readFile(path))
                                 lista.add(c);
                             break;
                         case "vCard":
-                            for (Contact c : vcard.readFile(path))
+                            for (Contact c : fm.readFile(path))
                                 lista.add(c);
                             break;
                         case "CSV":
-                            for (Contact c : csv.readFile(path))
+                            for (Contact c : fm.readFile(path))
                                 lista.add(c);
                             break;
                         default:
@@ -101,15 +105,18 @@ public class Ex3 {
                     break;
                 case 6:
                     path = getPath();
-                    switch(chooseFileType()) {
-                        case 0:
-                            nokia.saveFile(path, lista.toArray());
+                    type = chooseFileType();
+                    final Class<?> cla = Class.forName("aula12.ex3.plugins." + type);
+                    fm = plgs.stream().filter(format -> format.getClass() == cla).collect(Collectors.toList()).get(0);
+                    switch(type) {
+                        case "Nokia":
+                            fm.saveFile(path, lista.toArray());
                             break;
-                        case 1:
-                            vcard.saveFile(path, lista.toArray());
+                        case "vCard":
+                            fm.saveFile(path, lista.toArray());
                             break;
-                        case 2:
-                            csv.saveFile(path, lista.toArray());
+                        case "CSV":
+                            fm.saveFile(path, lista.toArray());
                             break;
                     }
 					break;
@@ -175,8 +182,9 @@ public class Ex3 {
         return sc.nextLine();
     }
 
-    public static int chooseFileType() {
+    public static String chooseFileType() {
         int op = 0;
+        String types[] = {"Nokia", "vCard", "CSV"};
         System.out.println("------------------------------------------------");
         System.out.println("\t0 - Nokia.");
         System.out.println("\t1 - vCard.");
@@ -188,7 +196,7 @@ public class Ex3 {
             op = sc.nextInt();
         } while (op < 0 && op > 2);
 
-        return op;
+        return types[op];
     }
 
 }
