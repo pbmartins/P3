@@ -1,4 +1,4 @@
-package aula12;
+package aula12.ex1;
 
 import java.lang.reflect.*;
 import java.util.*;
