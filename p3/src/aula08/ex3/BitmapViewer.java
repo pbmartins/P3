@@ -7,7 +7,6 @@ import javax.swing.filechooser.*;
 import java.io.*;
 
 public class BitmapViewer extends JFrame {
-    private JFrame frame;
     private JPanel panel;
     private PanelImage imagePanel;
     private JMenuBar menuBar;
@@ -30,7 +29,6 @@ public class BitmapViewer extends JFrame {
         super.setResizable(false);
 
         panel = new JPanel();
-
 
         // Menu
         menuBar = new JMenuBar();
